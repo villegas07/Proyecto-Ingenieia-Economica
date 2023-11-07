@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="estilos.css">
+    <title>CALCULO DE LA ANUALIDAD ANTICIPADA CON VP</title>
+    <script type="text/javascript">
+      function calcularAnualidadVP(){
+
+     var vp, anualidad, tasa, tiempo;
+     var tasaMinima = 0.1; // Tasa mínima permitida por regulaciones
+     var tasaMaxima = 0.3; // Tasa máxima permitida por regulaciones
+
+     // Hace el llamado a los datos ingresados
+      vp = parseFloat(document.getElementById("vp").value);
+      tasa = parseFloat(document.getElementById("tasa").value) / 100;
+      tiempo = parseFloat(document.getElementById("tiempo").value);
+
+      if (tasa < tasaMinima || tasa > tasaMaxima) {
+        window.alert("La tasa de interés no cumple con las regulaciones vigentes. Debe estar entre " + tasaMinima * 100 + "% y " + tasaMaxima * 100 + "%.");
+        return;
+      }
+
+      anualidad = vp / (1 + tasa) * ((Math.pow(1 + tasa, tiempo) - 1) / (tasa * Math.pow(1 + tasa, tiempo)));
+
+     if (isNaN(vp) || isNaN(tasa) || isNaN(tiempo)) {
+     	window.alert("Todos los campos son obligatorios y deben ser números válidos.");
+     } else {
+        document.getElementById("anualidad").value = anualidad.toFixed(0);
+     }
+  }
+</script>
+</head>
+<body>
+  <div id="contenedor">
+    <header id="cabecera">
+      <h1>Anualidad anticipada con VP</h1>
+    </header>
+    <center>
+        <form class="form-container">
+          <p>Ingrese los siguientes datos: </p><br>
+          <p>Valor presente: </p>
+          <input type="text" name="vp" id="vp" required> <br> <br>
+          <p>Tasa de Interes en %: </p>
+          <input type="text" name="tasa" id="tasa" required> <br> <br>
+          <p>Tiempo: </p>
+          <input type="text" name="tiempo" id="tiempo" required> <br> <br>
+          <p>La anualidad calculada es: </p>
+          <input type="text" name="anualidad" id="anualidad" disabled>
+          <br><br>
+          <input type="button" value="Calcular anualidad" class="btn btn-primary" onClick="calcularAnualidadVP()">
+          <a href="calculadoras.html">
+          <input type="button" class="btn btn-primary" value="Regresar"></a>
+          <br> <br>
+          <footer id="pie">
+            <p><b>Desarrollado por Brayan Villegas Corrales - Daniel Díaz Montiel</b></p>
+          </footer>
+        </form>
+      </center>
+    </div>
+  </body>
+</html>
+

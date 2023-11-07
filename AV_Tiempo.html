@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="estilos.css">
+    <title>CALCULO DEL TIEMPO EN ANUALIDAD VENCIDA</title>
+    <script type="text/javascript">
+      function calculartiempo(){
+
+     var tiempo, anualidad, tasaInteres, valorfuturo;
+     var tasaMinima = 0.1; // Tasa mínima permitida por regulaciones
+     var tasaMaxima = 0.3; // Tasa máxima permitida por regulaciones
+
+     //Hace el llamado a los datos ingresados
+      anualidad=document.getElementById("anualidad").value;
+      tasaInteres=document.getElementById("tasaInteres").value/100;
+      valorfuturo=document.getElementById("valorfuturo").value;
+
+      if (tasaInteres < tasaMinima || tasaInteres > tasaMaxima) {
+        window.alert("La tasa de interés no cumple con las regulaciones vigentes. Debe estar entre " + tasaMinima * 100 + "% y " + tasaMaxima * 100 + "%.");
+        return;
+      }
+
+      tiempo= (Math.log10(valorfuturo*tasaInteres+anualidad)-Math.log10(anualidad))/(Math.log10(1+tasaInteres));
+
+     if(anualidad == ""){
+     	window.alert("El campo Anualidad es obligatorio");
+     }
+     if(tasaInteres == ""){
+       window.alert("El campo Tasa efectiva es obligatorio");
+     }
+     if(valorfuturo == ""){
+     	window.alert("El campo valor futuro es obligatorio");
+     }
+
+     //Para enviar la leyenda cuando falten campos por llenar o de lo contrario mande la leyenda con el resultado
+      if(anualidad != "" && tasaInteres != "" && valorfuturo != ""){
+        document.getElementById("tiempo").value=tiempo.toFixed(0);
+       }
+  }
+</script>
+</head>
+<body>
+  <div id="contenedor">
+    <header id="cabecera">
+      <h1>Tiempo en anualidad vencida</h1>
+    </header>
+  <center>
+    <form class="form-container">
+          <p>Ingrese los siguientes datos: </p><br>
+          <p>Anualidad: </p>
+          <input type="text" name="anualidad" id="anualidad" required> <br> <br>
+          <p>Tasa Interes %: </p>
+          <input type="text" name="tasaInteres" id="tasaInteres" required> <br> <br>
+          <p>valor futuro: </p>
+          <input type="text" name="valorfuturo" id="valorfuturo" required> <br> <br>
+          <p>El tiempo es: </p>
+          <input type="text" name="tiempo" id="tiempo" disabled>
+          <br><br>
+          <input type="button" value="Calcular el tiempo" class="btn btn-primary" onClick="calculartiempo()">
+          <a href="calculadoras.html">
+          <input type="button" class="btn btn-primary" value="Regresar"></a>
+          <br><br>
+          <footer id="pie">
+            <p><b>Desarrollado por Brayan Villegas Corrales - Daniel Díaz Montiel</b></p>
+          </footer>
+        </form>
+      </center>
+    </div>
+  </body>
+</html>

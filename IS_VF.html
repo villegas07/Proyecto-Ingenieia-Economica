@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    >
+    <link rel="stylesheet" href="estilos.css">
+    <title>CALCULO DE VALOR FUTURO</title>
+    <script type="text/javascript">
+      function calcularValorFuturo() {
+        var valorPresente, valorFuturo, tasaInteres, tiempo;
+
+        // Hace el llamado a los datos ingresados
+        valorPresente = parseFloat(document.getElementById("valorPresente").value);
+        tasaInteres = parseFloat(document.getElementById("tasaInteres").value) / 100;
+        tiempo = parseFloat(document.getElementById("tiempo").value);
+
+        // Valida las tasas mínimas y máximas en Colombia (Ejemplo: entre 10% y 30%)
+        if (tasaInteres < 0.10 || tasaInteres > 0.30) {
+          window.alert(
+            "La Tasa de Interés no cumple con las tasas permitidas en Colombia. Debe estar entre el 10% y el 30% según las directrices de la Superintendencia Financiera."
+          );
+          return;
+        }
+
+        valorFuturo = valorPresente * (1 + tasaInteres * tiempo);
+
+        // Envía el resultado y lo reduce a 2 decimales
+        document.getElementById("valorFuturo").value = valorFuturo.toFixed(2);
+
+        if (isNaN(valorPresente) || isNaN(tasaInteres) || isNaN(tiempo)) {
+          window.alert("Todos los campos son obligatorios y deben ser números válidos.");
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="contenedor">
+      <header id="cabecera">
+        <h1>Valor futuro en interés simple</h1>
+      </header>
+      <center>
+        <form class="form-container">
+          <p>Ingrese los siguientes datos: </p>
+          <br />
+          <p>Valor Presente: </p>
+          <input
+            type="text"
+            name="valorPresente"
+            id="valorPresente"
+            required
+          />
+          <br />
+          <p>Tasa de Interes en %: </p>
+          <input
+            type="text"
+            name="tasaInteres"
+            id="tasaInteres"
+            required
+          />
+          <br />
+          <p>Tiempo: </p>
+          <input type="text" name="tiempo" id="tiempo" required />
+          <br />
+          <p>El valor futuro es: </p>
+          <input
+            type="text"
+            name="valorFuturo"
+            id="valorFuturo"
+            disabled
+          />
+          <br /><br />
+          <input
+            type="button"
+            value="Calcular Valor Futuro"
+            class="btn btn-primary"
+            onClick="calcularValorFuturo()"
+          />
+          <a href="calculadoras.html">
+            <input
+              type="button"
+              class="btn btn-primary"
+              value="Regresar"
+            />
+          </a>
+          <br /> <br />
+          <footer id="pie">
+            <p
+              ><b
+                >Desarrollado por Brayan Villegas Corrales - Daniel Díaz
+                Montiel</b
+              ></p>
+          </footer>
+        </form>
+      </center>
+    </div>
+  </body>
+</html>

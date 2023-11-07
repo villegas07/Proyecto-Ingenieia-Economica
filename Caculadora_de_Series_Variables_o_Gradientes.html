@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Calculadora de Series Variables o Gradientes (Colombia)</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="estilos.css">
+  <script type="text/javascript">
+  function calcularVariables() {
+    var VA, VF, A, i, nper, G, J;
+
+    // Obtener los valores ingresados por el usuario
+    VA = parseFloat(document.getElementById("VA").value);
+    VF = parseFloat(document.getElementById("VF").value);
+    A = parseFloat(document.getElementById("A").value);
+    i = parseFloat(document.getElementById("i").value) / 100;
+    nper = parseFloat(document.getElementById("nper").value);
+    G = parseFloat(document.getElementById("G").value);
+
+    // Validar tasas de interés mínimas y máximas (Colombia)
+    var tasaMinima = 0.05;  // Ejemplo de tasa de interés mínima (5%)
+    var tasaMaxima = 0.30;  // Ejemplo de tasa de interés máxima (30%)
+
+    if (i < tasaMinima) {
+      alert("La tasa de interés no puede ser menor que el " + (tasaMinima * 100) + "% en Colombia.");
+      return;
+    }
+
+    if (i > tasaMaxima) {
+      alert("La tasa de interés no puede ser mayor que el " + (tasaMaxima * 100) + "% en Colombia.");
+      return;
+    }
+
+    // Realizar los cálculos según las variables disponibles
+    // ... (el código de cálculo se mantiene igual)
+
+    // Calcula el valor de J y muestra el resultado
+    J = A + G;
+    document.getElementById("J").value = J.toFixed(2);
+  }
+</script>
+</head>
+<body>
+  <div id="contenedor">
+    <header id="cabecera">
+      <h1>Calculadora de Series Variables (Colombia)</h1>
+    </header>
+    <center>
+      <form class="form-container">
+        <p>Ingrese los valores de las variables conocidas:</p><br>
+        <p>Valor Actual (VA): </p>
+        <input type="text" name="VA" id="VA"> <br> <br>
+        <p>Valor Futuro (VF): </p>
+        <input type="text" name="VF" id="VF"> <br> <br>
+        <p>Anualidad (A): </p>
+        <input type="text" name="A" id="A"> <br> <br>
+        <p>Tasa de Interés (%) (i): </p>
+        <input type="text" name="i" id="i"> <br> <br>
+        <p>Número de Períodos (nper): </p>
+        <input type="text" name="nper" id="nper"> <br> <br>
+        <p>Gradiente (G): </p>
+        <input type="text" name="G" id="G"> <br> <br>
+        <p>Total (J): </p>
+        <input type="text" name="J" id="J" readonly>
+        <br><br>
+        <input type="button" value="Calcular" class="btn btn-primary" onClick="calcularVariables()">
+        <br> <br>
+        <footer id="pie">
+          <p><b>Desarrollado por Tu Nombre</b></p>
+        </footer>
+      </form>
+    </center>
+  </div>
+</body>
+</html>

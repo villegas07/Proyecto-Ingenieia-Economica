@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CALCULO DE LA TASA DE INTERES</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="estilos.css">
+  <script type="text/javascript">
+  var tasaMinima = 0.1; // Tasa mínima permitida por regulaciones
+  var tasaMaxima = 0.3; // Tasa máxima permitida por regulaciones
+
+  function calcularTasaInteres() {
+    var valorPresente, valorFuturo, tasaInteres, tiempo;
+    // Hace el llamado a los datos ingresados
+    valorPresente = document.getElementById("valorPresente").value;
+    tiempo = document.getElementById("tiempo").value;
+    valorFuturo = document.getElementById("valorFuturo").value;
+
+    if (valorPresente === "") {
+      window.alert("El campo Valor Presente es obligatorio");
+      return;
+    }
+    if (valorFuturo === "") {
+      window.alert("El campo Valor Futuro es obligatorio");
+      return;
+    }
+    if (tiempo === "") {
+      window.alert("El campo Tiempo es obligatorio");
+      return;
+    }
+
+    tasaInteres = (Math.pow(valorFuturo / valorPresente - 1, 1 / tiempo)) * 100;
+
+    if (tasaInteres < tasaMinima || tasaInteres > tasaMaxima) {
+      window.alert("La tasa de interés no cumple con las regulaciones vigentes. Debe estar entre " + tasaMinima * 100 + "% y " + tasaMaxima * 100 + "%.");
+      return;
+    }
+
+    // Envía el resultado y lo reduce a 0 decimales
+    document.getElementById("tasaInteres").value = tasaInteres.toFixed(0);
+  }
+</script>
+</head>
+<body>
+  <div id="contenedor">
+    <header id="cabecera">
+      <h1>Calculo de la Tasa de Interés</h1>
+    </header>
+    <center>
+        <form class="form-container">
+          <p>Ingrese los siguientes datos: </p><br>
+          <p>Valor Presente: </p>
+          <input type="text" name="valorPresente" id="valorPresente" required> <br> <br>
+          <p>Valor Futuro: </p>
+          <input type="text" name="valorFuturo" id="valorFuturo" required> <br> <br>
+          <p>Tiempo: </p>
+          <input type="text" name="tiempo" id="tiempo" required><br> <br>
+          <p>La Tasa de Interés es: </p>
+          <input type="text" name="tasaInteres" id="tasaInteres" disabled>
+          <br><br>
+          <input type="button" value="Calcular Tasa de Interés" class="btn btn-primary" onClick="calcularTasaInteres()">
+          <a href="calculadoras.html">
+          <input type="button" class="btn btn-primary" value="Regresar"></a>
+          <br> <br>
+          <footer id="pie">
+            <p><b>Desarrollado por Brayan Villegas Corrales - Daniel Díaz Montiel</b></p>
+          </footer>
+        </form>
+      </center>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CALCULO DE VP EN GRAD. GEOMETRICO DECRECIENTE</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="estilos.css">
+  <script type="text/javascript">
+  var tasaMinima = 0.1; // Tasa mínima permitida por regulaciones
+  var tasaMaxima = 0.3; // Tasa máxima permitida por regulaciones
+
+  function calcularVPGradGeometricoDecreciente() {
+    var valorPresente, anualidad, tasaInteres, variacionPorcentual, tiempo, opcion;
+    opcion = document.querySelector('input[name="opcion"]:checked').value;
+
+    anualidad = document.getElementById("anualidad").value;
+    tasaInteres = document.getElementById("tasaInteres").value / 100;
+    variacionPorcentual = document.getElementById("variacionPorcentual").value / 100;
+    tiempo = document.getElementById("tiempo").value;
+
+    if (opcion === "ahorro") {
+      valorPresente = anualidad * ((1 - Math.pow(1 - tasaInteres, tiempo)) / (tasaInteres * (1 - tasaInteres) - variacionPorcentual * (1 - Math.pow(1 - variacionPorcentual, tiempo))));
+    } else if (opcion === "pago") {
+      valorPresente = anualidad / ((1 - Math.pow(1 - tasaInteres, tiempo)) / (tasaInteres * (1 - tasaInteres) - variacionPorcentual * (1 - Math.pow(1 - variacionPorcentual, tiempo))));
+    } else {
+      window.alert("Por favor, seleccione si desea ahorrar o pagar.");
+      return;
+    }
+
+    if (anualidad === "") {
+      window.alert("El campo Anualidad es obligatorio");
+      return;
+    }
+    if (tasaInteres === "") {
+      window.alert("El campo Tasa de Interés es obligatorio");
+      return;
+    }
+    if (variacionPorcentual === "") {
+      window.alert("El campo Variación Porcentual es obligatorio");
+      return;
+    }
+    if (tiempo === "") {
+      window.alert("El campo Tiempo es obligatorio");
+      return;
+    }
+
+    if (tasaInteres < tasaMinima || tasaInteres > tasaMaxima) {
+      window.alert("La tasa de interés no cumple con las regulaciones vigentes. Debe estar entre " + tasaMinima * 100 + "% y " + tasaMaxima * 100 + "%.");
+      return;
+    }
+
+    document.getElementById("valorPresente").value = valorPresente.toFixed(0);
+  }
+</script>
+</head>
+<body>
+  <div id="contenedor">
+    <header id="cabecera">
+      <h1>Valor presente en gradiente geométrico decreciente</h1>
+    </header>
+    <center>
+        <form class="form-container">
+          <p>Ingrese los siguientes datos: </p><br>
+          <p>Anualidad: </p>
+          <input type="text" name="anualidad" id="anualidad" required> <br> <br>
+          <p>Tasa de Interes %: </p>
+          <input type="text" name="tasaInteres" id="tasaInteres" required> <br> <br>
+          <p>Variacion Porcentual: </p>
+          <input type="text" name="variacionPorcentual" id="variacionPorcentual" required><br> <br>
+          <p>Tiempo: </p>
+          <input type="text" name="tiempo" id="tiempo" required><br> <br>
+          <p>Seleccione si desea Ahorrar o Pagar: </p>
+          <input type="radio" name="opcion" value="ahorro" required>Ahorrar
+          <input type="radio" name="opcion" value="pago" required>Pagar
+          <br><br>
+          <p>El valor presente es: </p>
+          <input type="text" name="valorPresente" id="valorPresente" disabled>
+          <br><br>
+          <input type="button" value="Calcular Valor Presente" class="btn btn-primary" onClick="calcularVPGradGeometricoDecreciente()">
+          <a href="calculadoras.html">
+          <input type="button" class="btn btn-primary" value="Regresar"></a>
+          <br> <br>
+          <footer id="pie">
+            <p><b>Desarrollado por Brayan Villegas Corrales - Daniel Díaz Montiel</b></p>
+          </footer>
+        </form>
+      </center>
+    </div>
+  </body>
+</html>

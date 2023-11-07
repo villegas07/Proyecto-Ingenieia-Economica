@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CALCULO DEL TIEMPO</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="estilos.css">
+  <script type="text/javascript">
+  function calcularTiempo(){
+    var valorPresente, valorFuturo, tasaInteres, tiempo;
+
+    // Hace el llamado a los datos ingresados
+    valorPresente = parseFloat(document.getElementById("valorPresente").value);
+    tasaInteres = parseFloat(document.getElementById("tasaInteres").value) / 100;
+    valorFuturo = parseFloat(document.getElementById("valorFuturo").value);
+
+    // Valida las tasas mínimas y máximas en Colombia
+    if (tasaInteres < 0.10 || tasaInteres > 0.30) {
+      window.alert("La Tasa de Interés no cumple con las tasas permitidas en Colombia. Debe estar entre el 10% y el 30% según las directrices de la Superintendencia Financiera.");
+      return;
+    }
+
+    tiempo = (Math.log(valorFuturo / valorPresente)) / (Math.log(1 + tasaInteres));
+
+    // Envía el resultado y lo reduce a 0 decimales
+    document.getElementById("tiempo").value = tiempo.toFixed(0);
+
+    if (valorPresente === "" || valorFuturo === "" || tasaInteres === "") {
+      window.alert("Todos los campos son obligatorios.");
+    }
+  }
+</script>
+</head>
+<body>
+  <div id="contenedor">
+    <header id="cabecera">
+      <h1>Tiempo en interés compuesto</h1>
+    </header>
+    <center>
+        <form class="form-container">
+          <p>Ingrese los siguientes datos: </p><br>
+          <p>Valor Presente: </p>
+          <input type="text" name="valorPresente" id="valorPresente" required> <br> <br>
+          <p>Valor Futuro: </p>
+          <input type="text" name="valorFuturo" id="valorFuturo" required> <br> <br>
+          <p>Tasa de Interés en %: </p>
+          <input type="text" name="tasaInteres" id="tasaInteres" required> <br> <br>
+          <p>El tiempo es: </p>
+          <input type="text" name="tiempo" id="tiempo" disabled>
+          <br><br>
+          <input type="button" value="Calcular Tiempo" class="btn btn-primary" onClick="calcularTiempo()">
+          <a href="calculadoras.html">
+          <input type="button" class="btn btn-primary" value="Regresar"></a>
+          <br> <br>
+          <footer id="pie">
+            <p><b>Desarrollado por Brayan Villegas Corrales - Daniel Díaz Montiel</b></p>
+          </footer>
+        </form>
+      </center>
+    </div>
+  </body>
+</html>

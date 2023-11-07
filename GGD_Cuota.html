@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CALCULO DE CUOTA EN GRAD. GEOMETRICO DECRECIENTE</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="estilos.css">
+  <script type="text/javascript">
+    var tasaMinima = 0.1; // Tasa mínima permitida por regulaciones
+    var tasaMaxima = 0.3; // Tasa máxima permitida por regulaciones
+
+    function calcularCuotaGradGeometricoDecreciente() {
+      var cuota, anualidad, variacionPorcentual, tiempo, opcion;
+      opcion = document.querySelector('input[name="opcion"]:checked').value;
+
+      anualidad = document.getElementById("anualidad").value;
+      tiempo = document.getElementById("tiempo").value;
+      variacionPorcentual = document.getElementById("variacionPorcentual").value / 100;
+
+      if (opcion === "ahorro") {
+        cuota = anualidad * ((Math.pow(1 - variacionPorcentual, tiempo - 1)));
+      } else if (opcion === "pago") {
+        cuota = anualidad / ((Math.pow(1 - variacionPorcentual, tiempo - 1)));
+      } else {
+        window.alert("Por favor, seleccione si desea ahorrar o pagar.");
+        return;
+      }
+
+      if (anualidad === "" || tiempo === "" || variacionPorcentual === "") {
+        window.alert("Todos los campos son obligatorios.");
+        return;
+      }
+
+      if (variacionPorcentual < tasaMinima || variacionPorcentual > tasaMaxima) {
+        window.alert("La variación porcentual no cumple con las regulaciones vigentes. Debe estar entre " + tasaMinima * 100 + "% y " + tasaMaxima * 100 + "%.");
+        return;
+      }
+
+      document.getElementById("cuota").value = cuota.toFixed(0);
+    }
+  </script>
+</head>
+<body>
+  <div id="contenedor">
+    <header id="cabecera">
+      <h1>Cuota en gradiente geométrico decreciente</h1>
+    </header>
+    <center>
+        <form class="form-container">
+          <p>Ingrese los siguientes datos: </p><br>
+          <p>Tiempo: </p>
+          <input type="text" name="tiempo" id="tiempo" required> <br> <br>
+          <p>Anualidad: </p>
+          <input type="text" name="anualidad" id="anualidad" required> <br> <br>
+          <p>Variacion Porcentual: </p>
+          <input type="text" name="variacionPorcentual" id="variacionPorcentual" required><br> <br>
+          <p>Seleccione si desea Ahorrar o Pagar: </p>
+          <input type="radio" name="opcion" value="ahorro" required>Ahorrar
+          <input type="radio" name="opcion" value="pago" required>Pagar
+          <br><br>
+          <p>El valor de la cuota en el tiempo requerido es: </p>
+          <input type="text" name="cuota" id="cuota" disabled>
+          <br><br>
+          <input type="button" value="Calcular Cuota" class="btn btn-primary" onClick="calcularCuotaGradGeometricoDecreciente()">
+          <a href="calculadoras.html">
+          <input type="button" class="btn btn-primary" value="Regresar"></a>
+          <br> <br>
+          <footer id="pie">
+            <p><b>Desarrollado por Brayan Villegas Corrales - Daniel Díaz Montiel</b></p>
+          </footer>
+        </form>
+      </center>
+    </div>
+  </body>
+</html>
+

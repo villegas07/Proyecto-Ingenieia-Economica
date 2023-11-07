@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CALCULO DE LA TASA DE INTERES</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="estilos.css">
+  <script type="text/javascript">
+  function calcularTasaInteres(){
+    var valorPresente, valorFuturo, tasaInteres, tiempo;
+    // Hace el llamado a los datos ingresados
+    valorPresente = parseFloat(document.getElementById("valorPresente").value);
+    tiempo = parseFloat(document.getElementById("tiempo").value);
+    valorFuturo = parseFloat(document.getElementById("valorFuturo").value);
+
+    if (isNaN(valorPresente) || isNaN(tiempo) || isNaN(valorFuturo)) {
+      window.alert("Los campos Valor Presente, Valor Futuro y Tiempo deben ser números válidos.");
+      return;
+    }
+
+    tasaInteres = (Math.pow(valorFuturo / valorPresente - 1, 1 / tiempo)) * 100;
+
+    if (tasaInteres < 0.1 || tasaInteres > 0.3) {
+      window.alert("La tasa de interés (" + tasaInteres.toFixed(2) + "%) no cumple con las tasas permitidas en Colombia. Debe estar entre el 10% y el 30% según las directrices de la Superintendencia Financiera.");
+      return;
+    }
+
+    // Envía el resultado y lo reduce a 2 decimales
+    document.getElementById("tasaInteres").value = tasaInteres.toFixed(2);
+  }
+</script>
+</head>
+<body>
+  <nav class="navbar navbar-dark bg-primary">
+    <h1 class="navbar-brand mx-auto">INTERES COMPUESTO</h1>
+  </nav>
+
+  <section class="container-fluid">
+    <section class="row justify-content-center">
+      <section class="col-12 col-sm-6 col-md-4">
+    <br>
+        <center>
+        <form class="form-container">
+          <b><h3>TASA DE INTERES</h3></b> <br>
+          <p>Ingrese los siguientes datos: </p><br>
+          <p>Valor Presente: </p>
+          <input type="text" name="valorPresente" id="valorPresente" required> <br> <br>
+          <p>Valor Futuro: </p>
+          <input type="text" name="valorFuturo" id="valorFuturo" required> <br> <br>
+          <p>Tiempo: </p>
+          <input type="text" name="tiempo" id="tiempo" required><br> <br>
+          <p>La tasa de interés en % es: </p>
+          <input type="text" name="tasaInteres" id="tasaInteres" disabled>
+          <br><br>
+          <input type="button" value="Calcular Tasa de Interes" class="btn btn-primary" onClick="calcularTasaInteres()">
+          <a href="calculadoras.html">
+          <input type="button" class="btn btn-primary" value="Regresar"></a>
+          <br> <br>
+          <footer id="pie">
+            <p><b>Desarrollado por Brayan Villegas Corrales - Daniel Díaz Montiel</b></p>
+          </footer>
+        </form>
+      </center>
+    </section>
+  </body>
+</html>
